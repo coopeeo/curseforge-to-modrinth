@@ -4,13 +4,13 @@
 
 ## Usage
 
-`curseforge-to-modrinth <manifest.html>`
+`curseforge-to-modrinth <modlist.html>`
 
 See [below]() for more options
 
 ## About
 
-This tool takes a manifest file from a CurseForge modpack and lists all mods in the pack that are available on [Modrinth](https://modrinth.com/)
+This tool takes a modlist file from a CurseForge modpack and lists all mods in the pack that are available on [Modrinth](https://modrinth.com/)
 
 ### Motivation
 

@@ -6,6 +6,7 @@ import path from 'path'
 import ProgressBar from 'progress'
 import prompts from 'prompts'
 import { CommandBuilder, CommandModule } from 'yargs'
+import { Commands } from '..'
 import { setCommand, setCommandArgs } from '../..'
 import { operations } from '../../api/modrinth'
 import { log, LogType } from '../../util/log'
@@ -13,11 +14,11 @@ import { log, LogType } from '../../util/log'
 export default function run(args: Args) {
 	log(LogType.INFO, ['Reading modlist file...'])
 
-	const manifestPath = path.resolve(args.path)
-	if (fs.existsSync(manifestPath)) {
+	const modListPath = path.resolve(args.path)
+	if (fs.existsSync(modListPath)) {
 		const modAuthorRemove = /\(by .*\)/g
 		const modNameRemove1 = /.*\(by /g
-		const fileData = fs.readFileSync(manifestPath).toString()
+		const fileData = fs.readFileSync(modListPath).toString()
 
 		const docRoot = parse(fileData)
 		const listItems = docRoot.querySelectorAll('li>a')
@@ -137,7 +138,7 @@ export default function run(args: Args) {
 		console.log(
 			chalk.red.bold('Error: ') +
 				chalk.redBright('The file does not exist: ') +
-				manifestPath
+				modListPath
 		)
 		process.exit(1)
 	}
@@ -152,10 +153,10 @@ export const builder: CommandBuilder<Args> = {
 
 export const module: CommandModule<{}, Args> = {
 	handler: (args) => {
-		setCommand('parse-modlist')
+		setCommand(Commands.PARSE_MODLIST)
 		setCommandArgs(args)
 	},
-	command: ['parse-manifest', 'parse'],
+	command: ['parse-modlist', 'parse'],
 	builder: builder,
 }
 

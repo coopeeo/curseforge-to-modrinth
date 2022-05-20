@@ -1,13 +1,15 @@
+import { exit } from 'process'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 import { Commands } from './commands'
 import {
 	Args as parseModlistArgs,
 	default as runParseModlist,
-	module as parseManifestModule,
+	module as parseModlistModule,
 } from './commands/parse-modlist'
+import { log, LogType } from './util/log'
 
-let command: Commands = 'parse-modlist'
+let command: Commands = Commands.NONE
 let commandArgs: parseModlistArgs = { path: '' }
 
 export function setCommand(_command: Commands) {
@@ -32,9 +34,9 @@ export const argv = yargs(hideBin(process.argv))
 	.help()
 	.alias('h', 'help')
 	.command<parseModlistArgs>(
-		'parse-manifest',
+		'parse-modlist',
 		'Parse a CurseForge modlist and returns both Modrinth URLS and mods not on Modrinth',
-		parseManifestModule
+		parseModlistModule
 	)
 	.option('verbose', {
 		alias: 'v',
@@ -44,10 +46,9 @@ export const argv = yargs(hideBin(process.argv))
 	.demandCommand()
 	.parseSync()
 
-switch (command) {
-	case 'parse-modlist':
-		runParseModlist(commandArgs as parseModlistArgs)
-		break
-	default:
-		process.exit(0)
+if (command.valueOf() == Commands.PARSE_MODLIST.valueOf()) {
+	runParseModlist(commandArgs as parseModlistArgs)
+} else {
+	log(LogType.ERROR, ['No command provided (or command is invalid).'])
+	exit(0)
 }

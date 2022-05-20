@@ -1,1 +1,4 @@
-export type Commands = 'parse-modlist'
+export enum Commands {
+	PARSE_MODLIST,
+	NONE,
+}
