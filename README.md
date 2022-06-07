@@ -1,6 +1,7 @@
 # CurseForge to Modrinth
 
 ![ts](https://badgen.net/badge/-/TypeScript/blue?icon=typescript&label)
+![Github Actions](https://github.com/iwillreku3206/curseforge-to-modrinth/actions/workflows/build.yml/badge.svg)
 
 ## Usage
 
